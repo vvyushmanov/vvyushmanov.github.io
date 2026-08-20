@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% if page.title and page.url != "/" %}{{ page.title }} · {% endif %}Vadim Iushmanov</title>
+<meta name="description" content="{{ site.description | strip_newlines }}">
+<meta property="og:type" content="{% if page.url == "/" %}profile{% else %}article{% endif %}">
+<meta property="og:site_name" content="Vadim Iushmanov — portfolio">
+<meta property="og:title" content="{% if page.url == "/" %}Vadim Iushmanov — Platform Engineer / DevOps Engineer{% else %}{{ page.title }}{% endif %}">
+<meta property="og:description" content="{{ site.description | strip_newlines }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta name="twitter:card" content="summary">
 <style>
   :root {
     --fg: #1a1a1a; --muted: #5a5a5a; --bg: #ffffff;
