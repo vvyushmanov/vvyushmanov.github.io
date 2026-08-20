@@ -1,0 +1,12 @@
+# The site is markdown; the layout is one file of typography. Deliberately not
+# a designed personal website — the case studies are the artifact.
+plugins:
+  - jekyll-relative-links      # rewrites in-repo .md links to their built URLs
+relative_links:
+  enabled: true
+  collections: false
+exclude:
+  - README.md                  # served as index.md; kept for the GitHub repo view
+  - Gemfile
+  - Gemfile.lock
+  - vendor

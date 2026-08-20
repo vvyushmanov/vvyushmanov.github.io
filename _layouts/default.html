@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% if page.title and page.url != "/" %}{{ page.title }} · {% endif %}Vadim Iushmanov</title>
+<style>
+  :root {
+    --fg: #1a1a1a; --muted: #5a5a5a; --bg: #ffffff;
+    --link: #0b4f9e; --rule: #d8d8d8; --code-bg: #f4f4f4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: #e6e6e6; --muted: #a0a0a0; --bg: #16181a;
+      --link: #7fb2ec; --rule: #33373b; --code-bg: #22262a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 44rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  h1, h2, h3 { line-height: 1.25; font-weight: 600; }
+  h1 { font-size: 1.75rem; margin: 0 0 1.4rem; }
+  h2 { font-size: 1.2rem; margin: 2.6rem 0 .9rem;
+       padding-bottom: .3rem; border-bottom: 1px solid var(--rule); }
+  h3 { font-size: 1.02rem; margin: 1.9rem 0 .6rem; }
+  p, li { overflow-wrap: break-word; }
+  ul, ol { padding-left: 1.35rem; }
+  li { margin: .38rem 0; }
+  a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
+  blockquote {
+    margin: 1.4rem 0; padding: .1rem 0 .1rem 1rem;
+    border-left: 3px solid var(--rule); color: var(--muted);
+  }
+  code {
+    background: var(--code-bg); padding: .1em .32em;
+    border-radius: 3px; font-size: .89em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  pre { background: var(--code-bg); padding: .9rem 1rem; border-radius: 4px; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+  th, td { border: 1px solid var(--rule); padding: .45rem .6rem; text-align: left; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+  em { color: inherit; }
+  .nav { margin-top: 3.5rem; padding-top: 1rem;
+         border-top: 1px solid var(--rule); font-size: .93rem; }
+  .nav a { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+{{ content }}
+{% if page.url != "/" %}
+<p class="nav"><a href="{{ '/' | relative_url }}">← Vadim Iushmanov — portfolio index</a></p>
+{% endif %}
+</main>
+</body>
+</html>
