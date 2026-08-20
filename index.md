@@ -8,6 +8,18 @@ title: "Vadim Iushmanov (Yushmanov)"
 **Platform Engineer / DevOps Engineer** — Kubernetes, CI/CD, and the reliability
 work that keeps a platform standing after it ships.
 
+## Skills
+
+- **CI/CD & release** — Jenkins · GitLab CI · Helm · ArgoCD (GitOps) · Docker · OCI registries
+- **Observability & SLOs** — Prometheus · Grafana · Alertmanager · EFK / Fluentd · service level objectives · capacity planning
+- **Kubernetes & containers** — Kubernetes · K3s · Rancher · OpenShift · StatefulSets · taints and tolerations · topology spread
+- **Infrastructure as code** — Terraform · Ansible · Python · Go · Bash · Linux (Debian, RHEL)
+- **Stateful services & storage** — Percona MySQL · Galera · Redis Sentinel · RabbitMQ · MinIO · Longhorn · CSI
+- **Networking & real-time media** — SIP · RTP · SIPp · OpenSIPS · Wireshark · packet capture
+
+[SKILLS.md](SKILLS.md) grades every one of these — built, used or familiar — so
+a strong claim stays legible as a strong claim.
+
 ## Verifiable without taking my word for it
 
 - **[OT-CONTAINER-KIT/redis-operator #1684](https://github.com/OT-CONTAINER-KIT/redis-operator/pull/1684)**
@@ -49,18 +61,6 @@ co-locate with the one it exists to survive; why a promotion rule that stopped
 working after exactly one hour became a CronJob rather than a patched fork; and
 what is lost by dropping histogram buckets at the remote-write boundary, written
 into the config so nobody rediscovers it as a mystery.
-
-## Skills
-
-**CI/CD & release** — Jenkins · GitLab CI · Helm · ArgoCD (GitOps) · Docker · OCI registries
-**Observability & SLOs** — Prometheus · Grafana · Alertmanager · EFK / Fluentd · service level objectives · capacity planning
-**Kubernetes & containers** — Kubernetes · K3s · Rancher · OpenShift · StatefulSets · taints and tolerations · topology spread
-**Infrastructure as code** — Terraform · Ansible · Python · Go · Bash · Linux (Debian, RHEL)
-**Stateful services & storage** — Percona MySQL · Galera · Redis Sentinel · RabbitMQ · MinIO · Longhorn · CSI
-**Networking & real-time media** — SIP · RTP · SIPp · OpenSIPS · Wireshark · packet capture
-
-[SKILLS.md](SKILLS.md) grades every one of these — built, used or familiar — so
-a strong claim stays legible as a strong claim.
 
 ## What the work required
 
