@@ -77,5 +77,5 @@ are unnamed, capacity figures rounded or omitted, no employer code anywhere.
 ## Contact
 
 [vadim.yushmanov@gmail.com](mailto:vadim.yushmanov@gmail.com) ·
-[LinkedIn](https://www.linkedin.com/in/vadim-iushmanov-62b631148) ·
+[LinkedIn](https://www.linkedin.com/in/vadim-iushmanov) ·
 [GitHub](https://github.com/vvyushmanov)
