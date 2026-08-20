@@ -9,10 +9,10 @@ title: "Decision records"
 > are unnamed, capacity figures are rounded or omitted, and no employer code
 > appears here. I can go deeper under NDA in conversation.
 
-Eight decisions from three years of running a mission-critical communications
-platform on on-premise Kubernetes. Each follows the same shape: context,
-decision, alternatives considered, consequences. These are the trade-offs I
-would defend in an interview.
+Eight decisions from building and running a mission-critical communications
+platform on Kubernetes. Each follows the same shape: context, decision,
+alternatives considered, consequences. These are the trade-offs I would defend
+in an interview.
 
 ---
 

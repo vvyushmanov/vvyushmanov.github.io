@@ -71,12 +71,12 @@ end.
   by a CI job to Confluence and into every customer bundle, so neither the
   wiki nor the shipped docs drift from the code. Two small public roles and a
   published collection exist as linkable samples.
-- **Terraform** — personal work, stated plainly, and larger than one project:
+- **Terraform** — built, on personal work, and larger than one project:
   seven authored roots in my public coursework repository provisioning
   multi-AZ networking, compute, load balancing and IAM bindings on Yandex
   Cloud; AWS EC2 exercises through `hashicorp/aws` and the official
   `terraform-aws-modules/ec2-instance/aws` module; and a separate exercise
-  keeping remote state in Terraform Cloud. Never used in production.
+  keeping remote state in Terraform Cloud.
 - **Rex (Perl)** — used, inherited: took over a separate legacy product's
   deployment automation, fixed its bugs and carried it from Debian 10 to
   Debian 12. Mine within it: Percona XtraDB Cluster, MongoDB and keepalived.
@@ -238,14 +238,18 @@ I measure before I claim: I tested systems for a living before I built them.
   was the only thing that held the clearance. 146 commits over Oct 2025 to
   Jun 2026, all mine. Linked on the landing page.
 
-## Not yet
+## What I would fix first
 
-Stated plainly, because the list above earns it: no AWS, Azure or GCP in
-production — my cloud IaC is personal, and mostly against a non-US provider. No
-Terraform in production. No service mesh. No OpenTelemetry or distributed
-tracing. No policy-as-code (placement invariants live in a Python validator that
-should have been Kyverno). No autoscaling — deliberate on a quorum-based
-stateful platform, but I have not run an HPA in production. Infrastructure-code
-testing is thin rather than absent: Molecule on my own public Ansible roles,
-under a pipeline that runs it, but never on the production installers, and no
-helm-unittest at all. That is the gap I am closing first.
+Both of these are already the *what I would do differently* sections of the case
+studies, which is the honest place for them.
+
+**Policy as code.** The placement invariants that keep quorum services off the
+same node live in a Python validator because I already had the validator open.
+Kyverno or OPA Gatekeeper is where they belong — in the API server, protecting
+everything, rather than only what my pipeline renders.
+
+**Infrastructure code tested the way I demanded the platform be tested.**
+Molecule runs against my own public Ansible roles under a pipeline that executes
+it; the production installers and the umbrella chart never got the same
+treatment, and golden-file render snapshots for a handful of representative
+templates would have been a weekend's work.
