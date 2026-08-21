@@ -26,15 +26,15 @@ scheduling pressure: it co-locates replicas and reports success.
 **Decision.** The chart's spread helper defaults to a hard host constraint.
 A replica that cannot find its own node stays Pending, visibly.
 
-**Alternatives considered.** Soft spread (the friendly default) — rejected
+**Alternatives considered.** Soft spread (the friendly default) - rejected
 because the failure it permits is discovered during an outage, which is the
-most expensive possible time. Descheduler-only correction — rejected as the
+most expensive possible time. Descheduler-only correction - rejected as the
 primary mechanism because it repairs after the fact and proves nothing at
 install time; I run it as a supplement for post-recovery rebalancing.
 
 **Consequences.** Install-time failures became loud and cheap: an operator
 calls about a Pending pod instead of a customer calling about a lost quorum.
-The cost is real — under-provisioned clusters cannot quietly limp — and
+The cost is real - under-provisioned clusters cannot quietly limp - and
 deliberate.
 
 ## 2. The arbiter's placement policy is the absence of a toleration
@@ -44,16 +44,16 @@ ties. It has no capacity to spare; one data-plane pod scheduled onto it can
 starve the tie-breakers exactly when they are needed.
 
 **Decision.** Taint the arbiter and give the toleration to nothing except
-genuine quorum members. Every other workload — including every future one —
+genuine quorum members. Every other workload - including every future one -
 is excluded by default, because exclusion requires no list, no rule and no
 memory.
 
-**Alternatives considered.** A node-selector allowlist on the arbiter —
+**Alternatives considered.** A node-selector allowlist on the arbiter -
 rejected: it must be maintained, and a new service is included in the failure
-domain by forgetting it. Admission policy (Kyverno/OPA) — the right long-term
+domain by forgetting it. Admission policy (Kyverno/OPA) - the right long-term
 layer; at the time I enforced the same invariant in three places I already
 owned: render-time failures on invalid quorum sizing, the hard spread above,
-and a CI check asserting the negative — that no non-quorum workload carries
+and a CI check asserting the negative - that no non-quorum workload carries
 the toleration.
 
 **Consequences.** The failure domain became checkable rather than asserted.
@@ -73,13 +73,13 @@ reserved for the system and for Kubernetes itself, soft eviction with a grace
 window long enough for a service to release its database migration lock, and
 a hard floor beneath it.
 
-**Alternatives considered.** Leaving it to the distribution's defaults —
+**Alternatives considered.** Leaving it to the distribution's defaults -
 rejected after watching the OOM killer choose the runtime. Sizing
-reservations per-node-role — deferred; a uniform backstop was defensible and
+reservations per-node-role - deferred; a uniform backstop was defensible and
 shippable.
 
 **Consequences.** Node allocatable shrank by a stated amount on every node,
-which on a full cluster is not free — the changelog entry tells operators to
+which on a full cluster is not free - the changelog entry tells operators to
 verify headroom before applying. Memory pressure now terminates a pod through
 the API, with its shutdown window honoured, instead of terminating the node's
 ability to run pods.
@@ -96,8 +96,8 @@ became a CronJob that re-asserts the rule on a cadence inside the expiry
 window.
 
 **Alternatives considered.** Patching the orchestrator to make the rule
-durable — rejected: carrying a fork of a data-path component for a
-convenience rule is a bad trade. Documenting a manual re-assert — rejected as
+durable - rejected: carrying a fork of a data-path component for a
+convenience rule is a bad trade. Documenting a manual re-assert - rejected as
 a runbook step that fails exactly when nobody is looking.
 
 **Consequences.** The recovery behaviour became permanent and boring. The
@@ -108,17 +108,17 @@ expiry you have not read about yet.
 
 **Context.** Release tooling needs to rewrite image tags inside a
 six-thousand-line values file that carries over a thousand documentation
-comments — comments that are the customer-facing reference for every
+comments - comments that are the customer-facing reference for every
 parameter.
 
 **Decision.** The rewriter is a line scanner that tracks indentation and
-touches only the target line. It refuses the obvious implementation — parse,
-modify, dump — on purpose.
+touches only the target line. It refuses the obvious implementation - parse,
+modify, dump - on purpose.
 
-**Alternatives considered.** A YAML round-trip — rejected because standard
+**Alternatives considered.** A YAML round-trip - rejected because standard
 dumpers discard comments, and a comment-preserving library still re-flows
 formatting; either way the diff stops being reviewable and the documentation
-degrades with every release. Moving tags out of the values file entirely —
+degrades with every release. Moving tags out of the values file entirely -
 the cleaner architecture, but it changes the operator interface for every
 customer and was not worth coupling to a tooling change.
 
@@ -130,7 +130,7 @@ untouched.
 
 **Context.** Internal clusters forward metrics to a central Prometheus.
 Agent mode looked ideal: scrape locally, stream centrally, keep nothing.
-But agent mode is streaming-only — it does not evaluate recording rules, so
+But agent mode is streaming-only - it does not evaluate recording rules, so
 none of the derived series the standard dashboards filter on ever existed.
 Imported dashboards rendered No data.
 
@@ -138,9 +138,9 @@ Imported dashboards rendered No data.
 1 GiB cap, ephemeral storage, long-term history living centrally via the same
 remote-write. Rules and alerts evaluate in-cluster.
 
-**Alternatives considered.** Recreating the recording rules centrally —
+**Alternatives considered.** Recreating the recording rules centrally -
 rejected: it duplicates the entire rule set per cluster and drifts. Rebuilding
-every dashboard against raw series — rejected: fighting the upstream
+every dashboard against raw series - rejected: fighting the upstream
 ecosystem forever to save one pod's memory.
 
 **Consequences.** Roughly half a gigabyte more RAM on the monitoring pod,
@@ -150,7 +150,7 @@ debugging buffer.
 
 ## 7. Drop histogram buckets at the remote-write boundary, and say what is lost
 
-**Context.** The central Prometheus was buckling — compaction p95 near four
+**Context.** The central Prometheus was buckling - compaction p95 near four
 minutes, CPU spikes feeding a cascade into the logging store. Measurement
 showed control-plane histogram buckets dominated series cardinality.
 
@@ -160,9 +160,9 @@ latency and request rate remain queryable centrally. Accept, and write down,
 that central-side quantiles for those metrics are gone; the edge cluster's
 two-hour retention can still compute them during a debugging session.
 
-**Alternatives considered.** Scaling the central server — treats the symptom
-and raises the floor forever. Longer scrape intervals — degrades every metric
-to save a few. Dropping whole metrics — loses the mean and the rate, which
+**Alternatives considered.** Scaling the central server - treats the symptom
+and raises the floor forever. Longer scrape intervals - degrades every metric
+to save a few. Dropping whole metrics - loses the mean and the rate, which
 answer most questions the quantiles would have been asked.
 
 **Consequences.** About forty percent of the central head-series load gone,
@@ -172,8 +172,8 @@ The loss is explicit in the file, so nobody rediscovers it as a mystery.
 ## 8. KPIs are measured at WARN, and the instrument is measured first
 
 **Context.** Latency acceptance numbers drifted between runs with no code
-change. A controlled three-arm experiment — same cohort, same build, same
-hour, only the server log level varied — showed DEBUG logging on two services
+change. A controlled three-arm experiment - same cohort, same build, same
+hour, only the server log level varied - showed DEBUG logging on two services
 roughly doubling the client-observed p95 and manufacturing a KPI breach that
 would otherwise have been filed as a platform defect.
 
@@ -182,9 +182,9 @@ extends to the instruments themselves: each metrics endpoint's per-call CPU
 cost was measured, and scrape cadence budgeted so profiling stays a
 fraction of a percent of the resource envelope it observes.
 
-**Alternatives considered.** Trusting the numbers and filing the defect —
+**Alternatives considered.** Trusting the numbers and filing the defect -
 this nearly happened, and it is why the rule exists. Measuring at DEBUG "for
-more detail" and correcting afterwards — rejected: there is no defensible
+more detail" and correcting afterwards - rejected: there is no defensible
 correction factor for an instrument that changes the system's timing.
 
 **Consequences.** Earlier DEBUG-tainted results were reclassified rather than

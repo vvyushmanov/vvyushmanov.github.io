@@ -15,10 +15,10 @@ supply-chain provenance.*
 ## Context
 
 One Helm chart deployed an entire mission-critical communications platform: 44
-workloads across three language runtimes, rendering 185 Kubernetes objects —
-StatefulSets with ordered rollout and canary partitions, a host-network
-DaemonSet, Jobs, CronJobs, NetworkPolicies, PriorityClasses, PodDisruptionBudgets
-— plus four vendored subcharts for the data layer, one of them an in-house
+workloads across three language runtimes, rendering 185 Kubernetes objects
+(StatefulSets with ordered rollout and canary partitions, a host-network
+DaemonSet, Jobs, CronJobs, NetworkPolicies, PriorityClasses, PodDisruptionBudgets),
+plus four vendored subcharts for the data layer, one of them an in-house
 patched fork of an upstream operator chart.
 
 It shipped to customer-owned hardware. There was no rolling back a bad release
@@ -33,7 +33,7 @@ but for one version bump.
 Two failure modes, both cheap to create and expensive to discover.
 
 **Chart-wide changes were 44-file mechanical edits.** Adding a probe, changing a
-log level default, altering how replicas are derived — each meant touching every
+log level default, altering how replicas are derived - each meant touching every
 service template, with a per-file chance of divergence that nothing would catch
 until a customer hit it.
 
@@ -46,7 +46,7 @@ starts and misbehaves.
 
 **A template helper library instead of copy-paste.** Fifty named templates,
 each encoding an explicit precedence chain rather than a
-literal — per-service value, then a global default, then a hard fallback.
+literal - per-service value, then a global default, then a hard fallback.
 Adoption is the evidence it worked: the most-used helper has 114 call sites.
 Chart-wide changes became single-helper edits.
 
@@ -75,9 +75,9 @@ library achieved the same de-duplication without giving every service its own
 release cadence to keep in step.
 
 **Round-tripping the values file through a YAML library** for the automated
-tag-pinning tool. A round-trip discards comments, and in this values file — six
-thousand lines, over a thousand comments — the comments *are* the customer's
-documentation. I wrote an indentation-aware line scanner instead — uglier, and
+tag-pinning tool. A round-trip discards comments, and in this values file - six
+thousand lines, over a thousand comments - the comments *are* the customer's
+documentation. I wrote an indentation-aware line scanner instead - uglier, and
 correct.
 
 ## Outcome
@@ -100,7 +100,7 @@ no password entry. None of these are in any tutorial.
 **Test the infrastructure code the way I demanded the platform be tested.** This
 is the sharpest criticism of the work and I agree with it. There were no chart
 unit tests, no golden-file render snapshots, and the pipeline was tag-triggered
-only — a pull request ran nothing. I wrote a rule set demanding measurement
+only - a pull request ran nothing. I wrote a rule set demanding measurement
 rigour for the platform and did not hold my own release path to it. Golden-file
 renders for a handful of representative templates would have been a weekend.
 

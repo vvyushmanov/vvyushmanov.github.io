@@ -12,8 +12,8 @@ title: "Capacity acceptance under a fixed hardware envelope"
 *Demonstrates: capacity engineering, resource governance, measurement
 methodology, root-cause attribution.*
 
-A controlled three-arm experiment — same cohort, same build, same hour, only
-the server log level varied — showed a single DEBUG logger inflating p95
+A controlled three-arm experiment - same cohort, same build, same hour, only
+the server log level varied - showed a single DEBUG logger inflating p95
 signalling latency from about one second to over two. That number was on its
 way to being filed as a platform defect. It was our own logging.
 
@@ -24,13 +24,13 @@ platform.
 
 ## Context
 
-A mission-critical push-to-talk platform — 44 microservices on a four-node
+A mission-critical push-to-talk platform - 44 microservices on a four-node
 on-premise Kubernetes cluster, roughly 28 cores and 100 GiB allocatable. A
 customer milestone required signing numeric acceptance criteria: call setup
 latency, message delivery, emergency call reach, under a cohort of a few
 thousand concurrent sessions.
 
-The hardware was fixed. Not "expensive to grow" — fixed. No node was ever going
+The hardware was fixed. Not "expensive to grow" - fixed. No node was ever going
 to be added.
 
 ## Problem
@@ -41,7 +41,7 @@ The obvious problem was that some criteria failed. The real problem was that
 nobody could say *why* a criterion failed. Runs disagreed with each other. A
 slow number could mean the platform was too slow, or the injector fleet was the
 bottleneck, or a service was starved of CPU, or the measurement itself was
-wrong — and we had no way to tell those apart. Two defects had already been
+wrong - and we had no way to tell those apart. Two defects had already been
 filed against application code that turned out to be CPU-starved by its own
 cgroup limit.
 
@@ -60,7 +60,7 @@ from an opinion into an arithmetic claim someone could check.
 
 **Effect proof before a limit raise.** Raising a limit on a pod that was not
 measurably throttled relieves nothing. So a raise had to carry evidence of
-actual CFS throttling — otherwise it was void.
+actual CFS throttling - otherwise it was void.
 
 **Five admissible exits for a performance knee.** A knee was not closed until it
 resolved as exactly one of: reallocation inside the envelope (naming a donor),
@@ -84,7 +84,7 @@ Spring-exposed CPU gauge normalised by four JVM-visible cores against a
 two-core limit and under-read by half. A thread-pool utilisation metric reading 52% described a pool with 102 of its
 103 threads parked at 2.5 concurrent requests. I read from cgroup counters instead and
 differenced throttling over the run window rather than reading a cumulative
-ratio — a running cluster's counters carry history from before the run started.
+ratio - a running cluster's counters carry history from before the run started.
 
 **Averaging percentiles across injectors.** Mathematically wrong, and it
 mattered: taking the maximum per-injector p99 gave a materially lower number
@@ -114,7 +114,7 @@ real customer traffic.
 
 **Enforce the methodology in code, not prose.** The rules lived in documents
 that I followed. When I checked, only 51 of the 97 reports carried the explicit
-attribution section the rule required — nothing mechanically failed a report
+attribution section the rule required - nothing mechanically failed a report
 that omitted it. The ledger linter proved the pattern works; I should have
 extended it to the reports on day one.
 

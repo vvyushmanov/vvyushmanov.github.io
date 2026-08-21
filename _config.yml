@@ -1,5 +1,5 @@
 # The site is markdown; the layout is one file of typography. Deliberately not
-# a designed personal website — the case studies are the artifact.
+# a designed personal website; the case studies are the artifact.
 title: Vadim Iushmanov
 description: >-
   Platform engineering portfolio: Kubernetes, CI/CD and reliability work, with
